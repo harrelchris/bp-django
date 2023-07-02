@@ -3,6 +3,7 @@
 .static/
 .venv/
 __pycache__/
+logs/
 
 .env
 db.sqlite3
