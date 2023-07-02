@@ -1,8 +1,16 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Index{% endblock %}
 
 {% block content %}
-  <h1>Lorem</h1>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium autem blanditiis doloremque eaque impedit, ipsum iste labore minus neque odio optio porro quaerat quam quibusdam repellat tempore temporibus unde vel veniam voluptate. Consectetur dolorem est, itaque labore laboriosam laborum molestiae nisi, officiis placeat qui, recusandae soluta ullam vero voluptates voluptatum.</p>
+  <div class="container">
+    <h1>Lorem</h1>
+    <h4>The current date and time is <span id="datetime"></span></h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium autem blanditiis doloremque eaque impedit, ipsum iste labore minus neque odio optio porro quaerat quam quibusdam repellat tempore temporibus unde vel veniam voluptate. Consectetur dolorem est, itaque labore laboriosam laborum molestiae nisi, officiis placeat qui, recusandae soluta ullam vero voluptates voluptatum.</p>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'public/js/datatime.js' %}"></script>
 {% endblock %}
