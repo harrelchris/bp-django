@@ -114,3 +114,49 @@ INTERNAL_IPS = [
     "localhost",
     "[::1]",
 ]
+
+LOGS_DIR = BASE_DIR.parent / "logs"
+
+LOGS_DIR.mkdir(exist_ok=True)
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "app.console": {
+            "format": "[{asctime}] {levelname} {message}",
+            "datefmt": "%d/%b/%Y %H:%M:%S",  # Django server_time format
+            "style": "{"
+        },
+        "app.file": {
+            "format": "[{asctime}.{msecs:0<3.0f}] {levelname} {pathname}:{funcName}:{lineno} [{process}:{thread}] {message}",
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+            "style": "{"
+        },
+    },
+    "handlers": {
+        "app.console": {
+            "class": "logging.StreamHandler",
+            "formatter": "app.console",
+            "level": "DEBUG",
+        },
+        "app.file": {
+            "backupCount": 5,
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": str(LOGS_DIR / "app.error.log"),
+            "formatter": "app.file",
+            "level": "ERROR",
+            "maxBytes": 5000000,
+        }
+    },
+    "loggers": {
+        "app": {
+            "handlers": [
+                "app.console",
+                "app.file",
+            ],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+    }
+}
