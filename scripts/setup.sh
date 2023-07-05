@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VENV=".venvv"
+VENV=".venv"
 
 # Create virtual environment
 if [ ! -d "$VENV" ]; then
