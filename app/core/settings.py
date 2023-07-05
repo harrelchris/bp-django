@@ -124,12 +124,12 @@ LOGGING = {
         "app.console": {
             "format": "[{asctime}] {levelname} {message}",
             "datefmt": "%d/%b/%Y %H:%M:%S",  # Django server_time format
-            "style": "{"
+            "style": "{",
         },
         "app.file": {
             "format": "[{asctime}.{msecs:0<3.0f}] {levelname} {pathname}:{funcName}:{lineno} [{process}:{thread}] {message}",
             "datefmt": "%Y-%m-%d %H:%M:%S",
-            "style": "{"
+            "style": "{",
         },
     },
     "handlers": {
@@ -145,7 +145,7 @@ LOGGING = {
             "formatter": "app.file",
             "level": "ERROR",
             "maxBytes": 5000000,
-        }
+        },
     },
     "loggers": {
         "app": {
@@ -156,5 +156,5 @@ LOGGING = {
             "level": "DEBUG",
             "propagate": True,
         },
-    }
+    },
 }
