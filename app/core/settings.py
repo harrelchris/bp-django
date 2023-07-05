@@ -113,9 +113,9 @@ INTERNAL_IPS = [
     "[::1]",
 ]
 
-LOGS_DIR = BASE_DIR.parent / "logs"
+LOG_ROOT = Path(env.str("LOG_ROOT"))
 
-LOGS_DIR.mkdir(exist_ok=True)
+LOG_ROOT.mkdir(exist_ok=True)
 
 LOGGING = {
     "version": 1,
@@ -141,7 +141,7 @@ LOGGING = {
         "app.file": {
             "backupCount": 5,
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": str(LOGS_DIR / "app.error.log"),
+            "filename": str(LOG_ROOT / "app.error.log"),
             "formatter": "app.file",
             "level": "ERROR",
             "maxBytes": 5000000,
