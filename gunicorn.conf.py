@@ -1,12 +1,19 @@
-import pathlib
+from pathlib import Path
 
-ROOT = pathlib.Path(__file__).resolve().parent
-LOGS = ROOT / "logs"
+import environ
 
-LOGS.mkdir(exist_ok=True)
+env = environ.Env()
 
-accesslog = str(LOGS / "gunicorn.access.log")
-errorlog = str(LOGS / "gunicorn.error.log")
+BASE_DIR = Path(__file__).resolve().parent
+
+env.read_env(BASE_DIR / ".env")
+
+LOG_ROOT = Path(env.str("LOG_ROOT"))
+
+LOG_ROOT.mkdir(exist_ok=True)
+
+accesslog = str(LOG_ROOT / "gunicorn.access.log")
+errorlog = str(LOG_ROOT / "gunicorn.error.log")
 
 bind = "localhost:8000"
 chdir = "app"
