@@ -91,7 +91,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_ROOT = BASE_DIR.parent / ".static"
+STATIC_ROOT = env.str("STATIC_ROOT", Path(BASE_DIR.parent / ".static"))
 
 STATIC_URL = "static/"
 
