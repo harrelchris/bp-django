@@ -15,7 +15,7 @@ LOG_ROOT.mkdir(exist_ok=True)
 accesslog = str(LOG_ROOT / "gunicorn.access.log")
 errorlog = str(LOG_ROOT / "gunicorn.error.log")
 
-bind = "localhost:8000"
+bind = "unix:/run/gunicorn.sock"
 chdir = "/srv/web/app/"
 daemon = False
 workers = 2
