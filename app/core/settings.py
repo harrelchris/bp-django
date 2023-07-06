@@ -113,10 +113,6 @@ INTERNAL_IPS = [
     "[::1]",
 ]
 
-LOG_ROOT = Path(env.str("LOG_ROOT"))
-
-LOG_ROOT.mkdir(exist_ok=True)
-
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
