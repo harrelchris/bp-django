@@ -16,7 +16,7 @@ accesslog = str(LOG_ROOT / "gunicorn.access.log")
 errorlog = str(LOG_ROOT / "gunicorn.error.log")
 
 bind = "localhost:8000"
-chdir = "app"
+chdir = "/srv/web/app/"
 daemon = False
 workers = 2
 wsgi_app = "core.wsgi:application"
