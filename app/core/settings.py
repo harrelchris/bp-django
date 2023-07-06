@@ -126,11 +126,6 @@ LOGGING = {
             "datefmt": "%d/%b/%Y %H:%M:%S",  # Django server_time format
             "style": "{",
         },
-        "app.file": {
-            "format": "[{asctime}.{msecs:0<3.0f}] {levelname} {pathname}:{funcName}:{lineno} [{process}:{thread}] {message}",
-            "datefmt": "%Y-%m-%d %H:%M:%S",
-            "style": "{",
-        },
     },
     "handlers": {
         "app.console": {
@@ -138,20 +133,11 @@ LOGGING = {
             "formatter": "app.console",
             "level": "DEBUG",
         },
-        "app.file": {
-            "backupCount": 5,
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": str(LOG_ROOT / "app.error.log"),
-            "formatter": "app.file",
-            "level": "ERROR",
-            "maxBytes": 5000000,
-        },
     },
     "loggers": {
         "app": {
             "handlers": [
                 "app.console",
-                "app.file",
             ],
             "level": "DEBUG",
             "propagate": True,
