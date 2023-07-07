@@ -118,8 +118,8 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "app.console": {
-            "format": "[{asctime}] {levelname} {message}",
-            "datefmt": "%d/%b/%Y %H:%M:%S",  # Django server_time format
+            "format": "[{asctime}.{msecs:0<3.0f}] {levelname} {pathname}:{funcName}:{lineno} [{process}:{thread}] {message}",
+            "datefmt": "%Y-%m-%d %H:%M:%S",
             "style": "{",
         },
     },
