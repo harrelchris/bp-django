@@ -12,7 +12,7 @@ call .venv\Scripts\activate
 python -m pip install pip setuptools wheel --upgrade
 
 :: Install dependencies
-pip install -r requirements-dev.txt --upgrade
+pip install -r requirements.txt --upgrade
 
 :: Create .env from example
 if not exist .env (
