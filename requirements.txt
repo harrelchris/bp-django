@@ -1,3 +1,5 @@
+Black
 Django
 Django-Debug-Toolbar
 Django-Environ
+Flake8
