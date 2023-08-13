@@ -16,7 +16,7 @@ pip install -r requirements.txt --upgrade
 
 :: Create .env from example
 if not exist .env (
-	copy envs/dev.env .env
+	copy .\envs\dev.env .env
 )
 
 :: Delete the existing database
