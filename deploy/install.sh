@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Update
 apt update
 apt upgrade -y
@@ -19,19 +21,17 @@ ufw --force enable
 systemctl restart ufw
 
 # Create database
-sudo -u postgres psql -c "CREATE USER $POSTGRES_USERNAME WITH ENCRYPTED PASSWORD '$POSTGRES_PASSWORD';"
-sudo -u postgres psql -c "CREATE DATABASE $POSTGRES_DATABASE;"
-sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $POSTGRES_DATABASE TO $POSTGRES_USERNAME;"
+sudo -u postgres psql -c "CREATE USER web WITH ENCRYPTED PASSWORD 'pass';"
+sudo -u postgres psql -c "CREATE DATABASE web;"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE web TO web;"
 
 # Install application
 python3 -m venv /srv/web/venv
 /srv/web/venv/bin/python3 -m pip install pip setuptools wheel --upgrade --no-cache-dir
 /srv/web/venv/bin/python3 -m pip install gunicorn psycopg2-binary -r /srv/web/requirements.txt --upgrade --no-cache-dir
 cp /srv/web/envs/prod.env /srv/web/.env
+SECRET_KEY=$(python3 -c "import secrets;print(secrets.token_urlsafe(64))")
 sed -i "s/<SECRET_KEY>/$SECRET_KEY/g" /srv/web/.env
-sed -i "s/<POSTGRES_USERNAME>/$POSTGRES_USERNAME/g" /srv/web/.env
-sed -i "s/<POSTGRES_PASSWORD>/$POSTGRES_PASSWORD/g" /srv/web/.env
-sed -i "s/<POSTGRES_DATABASE>/$POSTGRES_DATABASE/g" /srv/web/.env
 /srv/web/venv/bin/python3 /srv/web/app/manage.py collectstatic
 /srv/web/venv/bin/python3 /srv/web/app/manage.py migrate
 
@@ -44,5 +44,6 @@ systemctl enable gunicorn.socket
 
 # Configure NGINX
 cp /srv/web/deploy/app.conf /etc/nginx/conf.d/app.conf
+PUBLIC_IP=$(curl -s -4 ifconfig.me)
 sed -i "s/server_name ~^.+$;/server_name $PUBLIC_IP;/" /etc/nginx/conf.d/app.conf
 systemctl restart nginx
