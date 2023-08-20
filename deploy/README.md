@@ -17,7 +17,7 @@ sudo git clone https://github.com/harrelchris/bp-django.git /srv/web
 sudo bash /srv/web/deploy/install.sh
 ```
 
-## Private repository
+### Private repository
 
 You will need an access token if the repository is private.
 
@@ -39,4 +39,39 @@ sudo bash /srv/web/deploy/install.sh
 
 ```shell
 (cd /srv/web && sudo git pull)
+```
+
+## Logs
+
+```shell
+# NGINX
+journalctl -u nginx.service
+tail /var/log/nginx/access.log
+tail /var/log/nginx/error.log
+
+# Gunicorn
+journalctl -u gunicorn.socket
+
+# Application
+journalctl -u gunicorn.service
+
+# Postgres
+/var/log/postgresql/postgresql-13-main.log
+
+# Timers
+systemctl list-timers
+systemctl --type=timer --all --failed
+
+systemctl status example.timer
+journalctl -u example.timer
+```
+
+## Install timer
+
+Add to `deploy/install.sh`
+
+```shell
+sudo cp /srv/web/deploy/timers/example.service /etc/systemd/system/example.service
+sudo cp /srv/web/deploy/timers/example.timer /etc/systemd/system/example.timer
+sudo systemctl enable example.timer --now
 ```
