@@ -1,14 +1,15 @@
 import logging
 
-from django.views.generic import TemplateView
+from django.template.response import TemplateResponse
 
 logger = logging.getLogger("app")
 
 
-class IndexView(TemplateView):
-    template_name = "public/index.html"
-
-    def get(self, request, *args, **kwargs):
-        logger.debug("Debug log")
-        logger.error("Error log")
-        return super().get(request, *args, **kwargs)
+def index(request):
+    logger.debug("Debug log")
+    logger.error("Error log")
+    return TemplateResponse(
+        request=request,
+        template="public/index.html",
+        context={},
+    )
