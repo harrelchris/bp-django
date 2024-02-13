@@ -12,7 +12,7 @@ call .venv\Scripts\activate
 python -m pip install pip setuptools wheel --upgrade
 
 :: Install dependencies
-pip install -r requirements.txt --upgrade
+pip install -r requirements/dev.txt --upgrade
 
 :: Create .env from example
 if not exist .env (
@@ -28,8 +28,16 @@ if exist db.sqlite3 (
 python app/manage.py makemigrations
 python app/manage.py migrate
 
+:: Create super users
+python app/manage.py createsuperuser --username root --email root@email.com --noinput
+python app/manage.py createsuperuser --username sudo --email sudo@email.com --noinput
+python app/manage.py createsuperuser --username user --email user@email.com --noinput
+
+:: Collect static files
+python app/manage.py collectstatic --noinput
+
+:: Install initial data
+:: python app/manage.py loaddata app/fixtures/data.json
+
 :: Delete migrations during development
 :: del app\public\migrations\0001_initial.py
-
-:: Create super user
-python app/manage.py createsuperuser --noinput

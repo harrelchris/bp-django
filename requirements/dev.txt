@@ -1,0 +1,6 @@
+-r base.txt
+
+Black
+Django-Debug-Toolbar
+Flake8
+iSort
