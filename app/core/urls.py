@@ -7,4 +7,5 @@ urlpatterns = [
     path("", include("public.urls"), name="public"),
     path("__debug__/", include("debug_toolbar.urls")),
     path("admin/", admin.site.urls),
+    path("users/", include("users.urls"), name="users"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

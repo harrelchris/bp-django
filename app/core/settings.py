@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "common",
     "public",
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,25 @@ LOGGING = {
         },
     },
 }
+
+AUTH_USER_MODEL = "users.User"
+
+LOGIN_URL = "users:login"
+
+LOGIN_REDIRECT_URL = "users:account"
+
+LOGOUT_REDIRECT_URL = "users:login"
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+
+EMAIL_FILE_PATH = BASE_DIR.parent / "logs/emails/"
+
+EMAIL_HOST = env.str("EMAIL_HOST")
+
+EMAIL_PORT = env.int("EMAIL_PORT")
+
+EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
+
+EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
+
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS")

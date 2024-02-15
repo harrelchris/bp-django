@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+  <div class="auth-form-wrapper">
+    <form class="auth-form" method="post">
+      <h1 class="h3 mb-3 fw-normal text-center">Log In</h1>
+      {% csrf_token %}
+      <div class="mb-3">
+        <input type="text" name="username" id="form-username" class="form-control" placeholder="Username" required>
+      </div>
+
+      {% if form.username.errors %}
+        <div class="alert alert-danger text-center" role="alert">
+          {% for error in form.username.errors %}
+            {{ error|escape }}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="mb-3">
+        <input type="password" name="password" id="form-password" class="form-control" placeholder="Password" required>
+      </div>
+
+      {% if form.password.errors %}
+        <div class="alert alert-danger text-center" role="alert">
+          {% for error in form.password.errors %}
+            {{ error|escape }}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="form-check mb-3">
+        <input type="checkbox" name="remember" id="form-remember" checked>
+        <label class="form-check-label" for="form-remember">
+          Remember me
+        </label>
+      </div>
+
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger text-center" role="alert">
+          {% for error in form.non_field_errors %}
+            {{ error|escape }}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <button type="submit" class="btn btn-lg btn-primary w-100">Log in</button>
+      <p class="mt-3 text-center text-secondary"><a href="{% url 'users:password_reset' %}" class="text-decoration-none">Reset password</a></p>
+      <p class="text-center"><a href="{% url 'users:register' %}" class="text-decoration-none text-primary">Create an account</a></p>
+    </form>
+  </div>
+{% endblock %}

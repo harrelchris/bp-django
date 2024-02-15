@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Account{% endblock %}
+
+{% block content %}
+  <div class="auth-form-wrapper">
+    <div class="auth-form">
+      <h1 class="h3 mb-3 fw-normal text-center">Delete My Account</h1>
+      <p class="text-center">Delete my account and associated data.</p>
+
+      <button type="button" class="btn btn-lg btn-danger w-100" data-bs-toggle="modal" data-bs-target="#confirm-delete">
+        Delete
+      </button>
+    </div>
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" aria-labelledby="confirm-delete" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+          <form class="p-3" method="post">
+            {% csrf_token %}
+            <h1 class="h3 mb-3 fw-normal text-center">Confirm</h1>
+            <p class="text-center">This action cannot be reversed.</p>
+            <p class="text-center">Are you sure you want to delete your account?</p>
+
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger text-center" role="alert">
+                {% for error in form.non_field_errors %}
+                  {{ error|escape }}
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-lg btn-danger w-100">Confirm Delete Account</button>
+            <p class="my-3 text-center"><small class="text-secondary">Click outside the button to cancel</small></p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+{#    <form method="post">#}
+{#      <h1 class="h3 mb-3 fw-normal text-center">Delete Account</h1>#}
+{#      <p class="text-center">Are you sure you want to delete your account?</p>#}
+{#      {% csrf_token %}#}
+
+{#      {% if form.non_field_errors %}#}
+{#        <div class="alert alert-danger text-center" role="alert">#}
+{#          {% for error in form.non_field_errors %}#}
+{#            {{ error|escape }}#}
+{#          {% endfor %}#}
+{#        </div>#}
+{#      {% endif %}#}
+
+{#      <button type="submit" class="btn btn-lg btn-danger w-100">Delete My Account</button>#}
+{#    </form>#}
+  </div>
+{% endblock %}
