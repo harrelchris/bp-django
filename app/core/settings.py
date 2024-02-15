@@ -119,7 +119,7 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "app.console": {
-            "format": "[{asctime}.{msecs:0<3.0f}] {levelname} {pathname}:{funcName}:{lineno} [{process}:{thread}] {message}",
+            "format": "[{asctime}.{msecs:0<3.0f}] {levelname} {pathname}:{funcName}:{lineno} [{process}:{thread}] {message}",  # noqa: E501
             "datefmt": "%Y-%m-%d %H:%M:%S",
             "style": "{",
         },
