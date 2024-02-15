@@ -1,0 +1,57 @@
+[
+  {
+    "model": "public.frequentlyaskedquestion",
+    "pk": 1,
+    "fields": {
+      "uuid": "77fa70c8-8f0c-4bed-aaca-cdbb15dd2f02",
+      "created_at": "2024-02-15T10:28:27.431Z",
+      "updated_at": "2024-02-15T10:29:02.080Z",
+      "question": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur cumque iste mollitia nobis quo suscipit?",
+      "answer": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut distinctio eaque earum esse odio ullam! Laboriosam, laborum, minima."
+    }
+  },
+  {
+    "model": "public.frequentlyaskedquestion",
+    "pk": 2,
+    "fields": {
+      "uuid": "59411d22-00f3-4679-8d02-7f4c1ea662df",
+      "created_at": "2024-02-15T10:29:15.443Z",
+      "updated_at": "2024-02-15T10:29:15.443Z",
+      "question": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure reprehenderit suscipit voluptatem?",
+      "answer": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur cumque iste mollitia nobis quo suscipit."
+    }
+  },
+  {
+    "model": "public.frequentlyaskedquestion",
+    "pk": 3,
+    "fields": {
+      "uuid": "59411d22-00f3-4679-8d02-7f4c1ea662d1",
+      "created_at": "2024-02-15T10:29:15.443Z",
+      "updated_at": "2024-02-15T10:29:15.443Z",
+      "question": "Lorem ipsum dolor sit amet, consectetur adipisicing elit?",
+      "answer": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure reprehenderit suscipit voluptatem."
+    }
+  },
+  {
+    "model": "public.frequentlyaskedquestion",
+    "pk": 4,
+    "fields": {
+      "uuid": "59411d22-00f3-4679-8d02-7f4c1ea662d2",
+      "created_at": "2024-02-15T10:29:15.443Z",
+      "updated_at": "2024-02-15T10:29:15.443Z",
+      "question": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut distinctio eaque earum?",
+      "answer": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure reprehenderit suscipit."
+    }
+  },
+  {
+    "model": "public.frequentlyaskedquestion",
+    "pk": 5,
+    "fields": {
+      "uuid": "59411d22-00f3-4679-8d02-7f4c1ea662d3",
+      "created_at": "2024-02-15T10:29:15.443Z",
+      "updated_at": "2024-02-15T10:29:15.443Z",
+      "question": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut distinctio eaque earum esse odio ullam! Laboriosam, laborum, minima?",
+      "answer": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure reprehenderit suscipit voluptatem."
+    }
+  }
+]

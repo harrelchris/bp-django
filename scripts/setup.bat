@@ -37,7 +37,7 @@ python app/manage.py createsuperuser --username user --email user@email.com --no
 python app/manage.py collectstatic --noinput
 
 :: Install initial data
-:: python app/manage.py loaddata app/fixtures/data.json
+python app\manage.py loaddata faq
 
 :: Delete migrations during development
-:: del app\public\migrations\0001_initial.py
+del app\public\migrations\0001_initial.py

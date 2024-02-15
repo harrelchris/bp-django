@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="p-5 text-center bg-body-tertiary">
+          <div class="container py-5">
+            <h1 class="text-body-emphasis">Contact Us</h1>
+            <p class="col-lg-8 mx-auto lead">Be sure to check our <a href="{% url 'public:faq' %}" class="text-decoration-none">Frequently Asked Questions</a> page first.</p>
+            <p class="col-lg-8 mx-auto lead">Please complete this form if you have a comment or question. Please provide as much information as possible so that we may assist you effectively.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="contact-form-wrapper">
+          <form class="contact-form" method="post">
+            <h1 class="h3 mb-3 fw-normal text-center">Contact Us</h1>
+            {% csrf_token %}
+
+            <div class="mb-3">
+              <input type="email" name="email" id="form-email" class="form-control" placeholder="Email" required>
+            </div>
+
+            {% if form.email.errors %}
+              <div class="alert alert-danger text-center" role="alert">
+                {% for error in form.email.errors %}
+                  {{ error|escape }}
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <div class="mb-3">
+              <textarea name="message" id="form-message" cols="30" rows="5" class="form-control" placeholder="Message" required></textarea>
+            </div>
+
+            {% if form.message.errors %}
+              <div class="alert alert-danger text-center" role="alert">
+                {% for error in form.message.errors %}
+                  {{ error|escape }}
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <div class="form-check mb-3">
+              <input type="checkbox" name="faq" id="form-faq" required>
+              <label class="form-faq-label" for="form-faq">
+                I have read the <a href="{% url 'public:faq' %}" class="text-decoration-none">Frequently Asked Questions</a>.
+              </label>
+            </div>
+
+            {% if form.faq.errors %}
+              <div class="alert alert-danger text-center" role="alert">
+                {% for error in form.faq.errors %}
+                  {{ error|escape }}
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger text-center" role="alert">
+                {% for error in form.non_field_errors %}
+                  {{ error|escape }}
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-lg btn-primary w-100">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

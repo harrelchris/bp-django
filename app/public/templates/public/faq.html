@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}FAQ{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="p-5 text-center bg-body-tertiary">
+          <div class="container py-5">
+            <h1 class="text-body-emphasis">Frequently Asked Questions</h1>
+            <p class="col-lg-8 mx-auto lead">
+              Here are the most common questions we receive. If your question is not included, please consider
+              <a href="{% url 'public:contact' %}" class="text-decoration-none">contacting us</a> and we will be happy to help.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="accordion mt-5" id="faq-accordian">
+          {% for question in questions %}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-heading-{{ forloop.counter }}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ forloop.counter }}" aria-expanded="false" aria-controls="flush-collapse-{{ forloop.counter }}">
+                  {{ question.question }}
+                </button>
+              </h2>
+              <div id="flush-collapse-{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{{ forloop.counter }}" data-bs-parent="#faq-accordian">
+                <div class="accordion-body py-4">{{ question.answer }}</div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
