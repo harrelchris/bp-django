@@ -22,7 +22,7 @@ footer {
 .auth-card-wrapper,
 .contact-form-wrapper {
   display: flex;
-  padding-top: 100px;
+  padding: 10vh 0;
 }
 
 .auth-form,
