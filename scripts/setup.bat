@@ -38,6 +38,3 @@ python app/manage.py collectstatic --noinput
 
 :: Install initial data
 python app\manage.py loaddata faq
-
-:: Delete migrations during development
-del app\public\migrations\0001_initial.py

@@ -25,7 +25,7 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField(
         widget=forms.EmailInput(
             attrs={
-                "autocomplete": "email-address",
+                "autocomplete": "email",
                 "class": "form-control",
                 "placeholder": "Email",
             }
@@ -96,7 +96,6 @@ class LoginForm(AuthenticationForm):
         required=False,
         widget=forms.CheckboxInput(
             attrs={
-                "autocomplete": "remember-me",
                 "checked": True,
                 "class": "form-check-input",
             },
@@ -128,7 +127,7 @@ class ChangePasswordForm(PasswordChangeForm):
         strip=False,
         widget=forms.PasswordInput(
             attrs={
-                "autocomplete": "old-password",
+                "autocomplete": "current-password",
                 "autofocus": True,
                 "class": "form-control",
                 "placeholder": "Old Password",

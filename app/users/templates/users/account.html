@@ -14,7 +14,10 @@
     <div class="d-flex align-items-center p-3 my-3 bg-light rounded shadow-sm">
       <div class="lh-1">
         <h1 class="h3 mb-0 text-dark lh-1">Email</h1>
-        <p class="my-3">{{ user.email }}</p>
+        <p class="my-3">{{ user.email }} {% if user.is_verified %}<i class="bi bi-check-circle text-success"></i>{% else %}<i class="bi bi-x-circle text-danger"></i>{% endif %} </p>
+        {% if not user.is_verified %}
+          <p class="my-3"><a href="{% url 'users:email_verify_resend' %}" class="text-decoration-none">Resend Verification Email</a></p>
+        {% endif %}
         <p class="my-3"><a href="{% url 'users:email_change' %}" class="text-decoration-none">Change Email</a></p>
         <p class="my-3"><a href="{% url 'users:password_change' %}" class="text-decoration-none">Change Password</a></p>
         <p class="my-3"><a href="{% url 'users:delete' %}" class="text-decoration-none">Delete Account</a></p>

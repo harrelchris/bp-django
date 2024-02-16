@@ -155,6 +155,8 @@ EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 
 EMAIL_FILE_PATH = BASE_DIR.parent / "logs/emails/"
 
+EMAIL_FROM_ADDRESS = env.str("EMAIL_FROM_ADDRESS", None)
+
 EMAIL_HOST = env.str("EMAIL_HOST")
 
 EMAIL_PORT = env.int("EMAIL_PORT")

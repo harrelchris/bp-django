@@ -3,4 +3,5 @@ from django.contrib.auth.admin import UserAdmin
 
 from . import models
 
+admin.site.register(models.EmailVerificationToken)
 admin.site.register(models.User, UserAdmin)
