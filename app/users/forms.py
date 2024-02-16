@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model, password_validation
 from django.contrib.auth.forms import (
     AuthenticationForm,
     PasswordChangeForm,
+    PasswordResetForm,
+    SetPasswordForm,
     UserCreationForm,
 )
 
@@ -11,8 +13,6 @@ User = get_user_model()
 
 class RegisterForm(UserCreationForm):
     username = forms.CharField(
-        help_text="A unique name",
-        label="Username",
         widget=forms.TextInput(
             attrs={
                 "autocomplete": "username",
@@ -23,7 +23,6 @@ class RegisterForm(UserCreationForm):
         ),
     )
     email = forms.EmailField(
-        label="Email",
         widget=forms.EmailInput(
             attrs={
                 "autocomplete": "email-address",
@@ -31,10 +30,8 @@ class RegisterForm(UserCreationForm):
                 "placeholder": "Email",
             }
         ),
-        help_text="Your email address",
     )
     password1 = forms.CharField(
-        label="Password",
         strip=False,
         widget=forms.PasswordInput(
             attrs={
@@ -46,7 +43,6 @@ class RegisterForm(UserCreationForm):
         help_text=password_validation.password_validators_help_text_html(),
     )
     password2 = forms.CharField(
-        label="Confirm Password",
         widget=forms.PasswordInput(
             attrs={
                 "autocomplete": "new-password",
@@ -55,7 +51,6 @@ class RegisterForm(UserCreationForm):
             }
         ),
         strip=False,
-        help_text="Enter the same password as before, for verification.",
     )
     field_order = [
         "username",
@@ -95,7 +90,6 @@ class LoginForm(AuthenticationForm):
                 "autocomplete": "remember-me",
                 "checked": True,
                 "class": "form-check-input",
-                "placeholder": "Remember Me",
             },
         ),
     )
@@ -122,7 +116,6 @@ class EmailChangeForm(forms.ModelForm):
 
 class ChangePasswordForm(PasswordChangeForm):
     old_password = forms.CharField(
-        label="Old password",
         strip=False,
         widget=forms.PasswordInput(
             attrs={
@@ -134,7 +127,6 @@ class ChangePasswordForm(PasswordChangeForm):
         ),
     )
     new_password1 = forms.CharField(
-        label="New password",
         widget=forms.PasswordInput(
             attrs={
                 "autocomplete": "new-password",
@@ -146,7 +138,6 @@ class ChangePasswordForm(PasswordChangeForm):
         help_text=password_validation.password_validators_help_text_html(),
     )
     new_password2 = forms.CharField(
-        label="New password confirmation",
         strip=False,
         widget=forms.PasswordInput(
             attrs={
@@ -158,6 +149,49 @@ class ChangePasswordForm(PasswordChangeForm):
     )
     field_order = [
         "old_password",
+        "new_password1",
+        "new_password2",
+    ]
+
+
+class ResetPasswordForm(PasswordResetForm):
+    email = forms.EmailField(
+        label="Email",
+        widget=forms.EmailInput(
+            attrs={
+                "autocomplete": "email",
+                "autofocus": True,
+                "class": "form-control",
+                "placeholder": "Email",
+            },
+        ),
+    )
+
+
+class ResetPasswordConfirmForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "autocomplete": "new-password",
+                "autofocus": True,
+                "class": "form-control",
+                "placeholder": "New Password",
+            },
+        ),
+        strip=False,
+        help_text=password_validation.password_validators_help_text_html(),
+    )
+    new_password2 = forms.CharField(
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={
+                "autocomplete": "new-password",
+                "class": "form-control",
+                "placeholder": "Confirm New Password",
+            },
+        ),
+    )
+    field_order = [
         "new_password1",
         "new_password2",
     ]

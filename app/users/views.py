@@ -4,6 +4,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import authenticate, get_user_model, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
@@ -124,3 +125,17 @@ def password_change(request):
             "form": form,
         },
     )
+
+
+class ResetPasswordView(PasswordResetView):
+    email_template_name = "users/password_reset_email.html"
+    form_class = forms.ResetPasswordForm
+    subject_template_name = "users/password_reset_subject.txt"
+    success_url = reverse_lazy("users:password_reset_done")
+    template_name = "users/password_reset.html"
+
+
+class ResetPasswordConfirmView(PasswordResetConfirmView):
+    form_class = forms.ResetPasswordConfirmForm
+    success_url = reverse_lazy("users:password_reset_complete")
+    template_name = "users/password_reset_confirm.html"
