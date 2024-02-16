@@ -20,7 +20,7 @@ def register(request):
             user = form.save()
             auth_login(request=request, user=user)
             messages.success(request=request, message="Account created")
-            return redirect(to=reverse_lazy(settings.LOGIN_REDIRECT_URL))
+            return redirect(to=reverse_lazy(viewname=settings.LOGIN_REDIRECT_URL))
     else:
         form = forms.RegisterForm()
     return TemplateResponse(
@@ -45,7 +45,7 @@ def login(request):
                 if not form.cleaned_data.get("remember", False):
                     request.session.set_expiry(0)
                 auth_login(request=request, user=user)
-                return redirect(to=reverse_lazy(settings.LOGIN_REDIRECT_URL))
+                return redirect(to=reverse_lazy(viewname=settings.LOGIN_REDIRECT_URL))
     else:
         form = forms.LoginForm(request=request)
     return TemplateResponse(
@@ -77,7 +77,7 @@ def delete(request):
         auth_logout(request=request)
         user.delete()
         messages.success(request=request, message="Account deleted")
-        return redirect(to=reverse_lazy(settings.LOGOUT_REDIRECT_URL))
+        return redirect(to=reverse_lazy(viewname=settings.LOGOUT_REDIRECT_URL))
     return TemplateResponse(
         request=request,
         template="users/delete.html",
@@ -94,7 +94,7 @@ def email_change(request):
         if form.is_valid():
             form.save()
             messages.success(request=request, message="Email changed")
-            return redirect(to=reverse_lazy(settings.LOGIN_REDIRECT_URL))
+            return redirect(to=reverse_lazy(viewname=settings.LOGIN_REDIRECT_URL))
     else:
         form = forms.EmailChangeForm()
     return TemplateResponse(
@@ -114,7 +114,7 @@ def password_change(request):
             user = form.save()
             update_session_auth_hash(request=request, user=user)
             messages.success(request=request, message="Password changed")
-            return redirect(to=reverse_lazy(settings.LOGIN_REDIRECT_URL))
+            return redirect(to=reverse_lazy(viewname=settings.LOGIN_REDIRECT_URL))
     else:
         form = forms.ChangePasswordForm(user=request.user)
     return TemplateResponse(
