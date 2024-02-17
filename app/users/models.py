@@ -12,11 +12,11 @@ class User(AbstractUser, BaseModel):
 
 
 class EmailVerificationToken(BaseModel):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="email_verification_token")
 
     @cached_property
     def to_string(self):
-        return self.uuid
+        return str(self.uuid)
 
     @property
     def is_expired(self):

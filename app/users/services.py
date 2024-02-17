@@ -56,7 +56,7 @@ def send_verification_email(request: HttpRequest):
         context={
             "protocol": "https" if settings.EMAIL_USE_TLS else "http",
             "domain": request.get_host(),
-            "uuid": token.uuid,
+            "uuid": token.to_string,
         },
     )
     from_email = settings.EMAIL_FROM_ADDRESS
