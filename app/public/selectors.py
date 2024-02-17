@@ -1,7 +1,6 @@
 from django.contrib import messages
 
-from . import forms
-from . import models
+from . import forms, models
 
 
 def get_frequent_questions():

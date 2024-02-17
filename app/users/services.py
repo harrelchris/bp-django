@@ -1,24 +1,54 @@
 from django.conf import settings
+from django.contrib.auth import authenticate, get_user_model, login, logout, update_session_auth_hash
 from django.core.mail import send_mail
+from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 
-from . import models
+from . import forms, models
+
+User = get_user_model()
 
 
-def delete_existing_email_verification_token(user=None, uuid=None):
-    """Delete extant and unused token for the user if exists"""
+def register_user(request: HttpRequest, form: forms.RegisterForm) -> User:
+    user = form.save()
+    login(request=request, user=user)
+    send_verification_email(request=request)
+    return user
 
-    if not any([user, uuid]):
-        raise ValueError("Either user or uuid is required")
+
+def login_user(request: HttpRequest, form: forms.LoginForm) -> User:
+    user = authenticate(
+        request=request,
+        username=form.cleaned_data["username"],
+        password=form.cleaned_data["password"],
+    )
     if user:
-        models.EmailVerificationToken.objects.filter(user=user).delete()
-    else:
-        models.EmailVerificationToken.objects.filter(uuid=uuid).delete()
+        if not form.cleaned_data.get("remember", False):
+            request.session.set_expiry(0)
+        login(request=request, user=user)
+    return user
 
 
-def send_verification_email(request):
-    delete_existing_email_verification_token(user=request.user)
+def delete_user(request: HttpRequest) -> None:
+    user = request.user
+    logout(request=request)
+    user.delete()
+
+
+def change_password(request: HttpRequest, form: forms.PasswordChangeForm):
+    user = form.save()
+    update_session_auth_hash(request=request, user=user)
+
+
+def delete_email_verification_token(user):
+    """Delete token for the user if exists"""
+
+    models.EmailVerificationToken.objects.filter(user=user).delete()
+
+
+def send_verification_email(request: HttpRequest):
+    delete_email_verification_token(user=request.user)
     token = models.EmailVerificationToken.objects.create(user=request.user)
     subject = render_to_string(template_name="users/email_verification_subject.txt").strip()
     message = render_to_string(
@@ -51,7 +81,7 @@ def verify_user_email(uuid):
         raise ValueError(msg)
     token.user.is_verified = True
     token.user.save()
-    delete_existing_email_verification_token(uuid=uuid)
+    delete_email_verification_token(user=token.user)
 
 
 def change_email(request, form):
