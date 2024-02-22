@@ -1,14 +1,12 @@
 #!/usr/bin/env bash
 
-VENV=".venv"
-
 # Create virtual environment
-if [ ! -d "$VENV" ]; then
-    python3 -m venv $VENV
+if [ ! -d ".venv" ]; then
+    python3 -m venv .venv
 fi
 
 # Activate virtual environment
-source $VENV/bin/activate
+source .venv/bin/activate
 
 # Update virtual environment
 python3 -m pip install pip setuptools wheel --upgrade
@@ -17,13 +15,13 @@ python3 -m pip install pip setuptools wheel --upgrade
 pip install -r requirements/dev.txt --upgrade
 
 # Create .env from example
-if [ ! -d ".env" ]; then
-    cp envs/dev.env .env
+if [ ! -f ".env" ]; then
+    cp ./envs/dev.env .env
 fi
 
 # Delete the existing database
-if [ ! -d "db.sqlite3" ]; then
-    rm "db.sqlite3"
+if [ -f "db.sqlite3" ]; then
+    rm db.sqlite3
 fi
 
 # Initialize a clean database
@@ -36,10 +34,4 @@ python3 app/manage.py createsuperuser --username sudo --email sudo@email.com --n
 python3 app/manage.py createsuperuser --username user --email user@email.com --noinput
 
 # Collect static files
-# python3 app/manage.py collectstatic --noinput
-
-# Install initial data
-# python3 app/manage.py loaddata app/fixtures/data.json
-
-# Delete migrations during development
-# rm app\public\migrations\0001_initial.py
+python3 app/manage.py collectstatic --noinput
