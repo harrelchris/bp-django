@@ -9,5 +9,4 @@ cp /srv/web/envs/prod.env /srv/web/.env
 SECRET_KEY=$(python3 -c "import secrets;print(secrets.token_urlsafe(64))")
 sed -i "s/<SECRET_KEY>/$SECRET_KEY/g" /srv/web/.env
 /srv/web/venv/bin/python3 /srv/web/app/manage.py collectstatic
-/srv/web/venv/bin/python3 /srv/web/app/manage.py makemigrations
 /srv/web/venv/bin/python3 /srv/web/app/manage.py migrate
