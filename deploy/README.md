@@ -15,6 +15,7 @@ Use your preferred cloud provider to create a Debian VM instance. Enable HTTP/HT
 sudo apt install git -y
 sudo git clone https://github.com/harrelchris/bp-django.git /srv/web
 sudo bash /srv/web/deploy/install.sh
+sudo /srv/web/venv/bin/python3 /srv/web/app/manage.py createsuperuser
 ```
 
 ### Private repository
