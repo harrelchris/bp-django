@@ -2,16 +2,34 @@
 
 Boilerplate for Django web applications
 
-## Setup
+## Install
 
-### Linux
-
-```shell
-./scripts/setup.sh
-```
-
-### Windows
+Run the appropriate installation script for your machine
 
 ```shell
-scripts\setup
+# bash
+./scripts/install.sh
+
+# cmd
+scripts\install
+
+# powershell
+.\scripts\install
 ```
+
+## Run
+
+```shell
+# bash
+./scripts/run.sh
+
+# cmd
+scripts\run
+
+# powershell
+.\scripts\run
+```
+
+## Deploy
+
+See the deployment [README.md](./deploy/README.md)
