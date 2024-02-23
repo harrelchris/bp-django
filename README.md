@@ -29,3 +29,7 @@ scripts\run
 # powershell
 .\scripts\run
 ```
+
+## Deploy
+
+See the deployment [README.md](./deploy/README.md)
