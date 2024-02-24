@@ -126,11 +126,13 @@ INTERNAL_IPS = [
     "[::1]",
 ]
 
+ERROR_LOG_FILE = env.str("ERROR_LOG_FILE", str(BASE_DIR.parent / "logs/error.log"))
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
-        "app.console": {
+        "app.verbose": {
             "format": "[{asctime}.{msecs:0<3.0f}] {levelname} {pathname}:{funcName}:{lineno} [{process}:{thread}] {message}",  # noqa: E501
             "datefmt": "%Y-%m-%d %H:%M:%S",
             "style": "{",
@@ -139,14 +141,24 @@ LOGGING = {
     "handlers": {
         "app.console": {
             "class": "logging.StreamHandler",
-            "formatter": "app.console",
+            "formatter": "app.verbose",
             "level": "DEBUG",
+        },
+        "app.file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "formatter": "app.verbose",
+            "level": "ERROR",
+            "filename": ERROR_LOG_FILE,
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB
+            "backupCount": 5,
+            "encoding": "utf-8",
         },
     },
     "loggers": {
         "app": {
             "handlers": [
                 "app.console",
+                "app.file",
             ],
             "level": "DEBUG",
             "propagate": True,
@@ -157,3 +169,5 @@ LOGGING = {
 ADMIN_URL = env.str("ADMIN_URL", "admin/")
 
 AUTH_USER_MODEL = "users.User"
+
+Path(ERROR_LOG_FILE).parent.mkdir(parents=True, exist_ok=True)
